@@ -4,42 +4,23 @@ class Mongodb < Formula
   homepage "https://www.mongodb.org/"
 
   stable do
-    url "https://fastdl.mongodb.org/src/mongodb-src-r2.6.5.tar.gz"
-    sha1 "f5a68505a0de1152b534d62a8f0147d258d503a0"
-
-    # Review this patch with the next stable release.
-    # Note it is a different patch to the one applied to all builds further below.
-    # This is already fixed in the devel & HEAD builds.
-    if MacOS.version == :yosemite
-      patch do
-        url "https://github.com/mongodb/mongo/commit/759b6e8.diff"
-        sha1 "63d901ac81681fbe8b92dc918954b247990ab2fb"
-      end
-    end
+    url "https://fastdl.mongodb.org/src/mongodb-src-r2.6.8.tar.gz"
+    sha1 "d67254ef3ba5ba81e21c56be9b919c3a10e01b32"
   end
 
-  version '2.6.5-boxen1'
+  version '2.6.8-boxen1'
 
   bottle do
-    revision 2
-    sha1 "e6da509908fdacf9eb0f16e850e0516cd0898072" => :yosemite
-    sha1 "5ab96fe864e725461eea856e138417994f50bb32" => :mavericks
-    sha1 "193e639b7b79fbb18cb2e0a6bbabfbc9b8cbc042" => :mountain_lion
+    sha1 "2841ae12013757c67605edd084a94c5a709c5345" => :yosemite
+    sha1 "2c5f3f581a322948140af65a51906b15b8b18778" => :mavericks
+    sha1 "8aa4750499fdeb325e7fe6d3a72aab186861ca90" => :mountain_lion
   end
 
   devel do
-    url "https://fastdl.mongodb.org/src/mongodb-src-r2.7.7.tar.gz"
-    sha1 "ce223f5793bdf5b3e1420b0ede2f2403e9f94e5a"
-
-    # Remove this with the next devel release. Already merged in HEAD.
-    # https://github.com/mongodb/mongo/commit/8b8e90fb
-    patch do
-      url "https://github.com/mongodb/mongo/commit/8b8e90fb.diff"
-      sha1 "9f9ce609c7692930976690cae68aa4fce1f8bca3"
-    end
+    url "https://fastdl.mongodb.org/src/mongodb-src-r3.1.1.tar.gz"
+    sha1 "a0d9ae6baa6034d5373b3ffe082a8fea5c14774f"
   end
 
-  # HEAD is currently failing. See https://jira.mongodb.org/browse/SERVER-15555
   head "https://github.com/mongodb/mongo.git"
 
   option "with-boost", "Compile using installed boost, not the version shipped with mongodb"
