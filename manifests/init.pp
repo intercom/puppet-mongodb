@@ -54,4 +54,9 @@ class mongodb(
     service => $service,
     enable  => $enable,
   }
+
+  ~>
+  class { 'mongodb::oplog':
+    port => $port
+  }
 }

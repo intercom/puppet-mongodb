@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+#
+# Start populating the Mongo oplog (replication log) on the local instance.
+
+set -e
+
+if [[ $# -lt 1 ]]; then
+  echo "Usage: $(basename $0) PORT" >&2
+  exit 1
+fi
+
+PORT=$1
+
+# If replication has never been configured before on this instance,
+# rs.initiate is needed to start it.
+# If it has previously been configured, rs.reconfig(force=true) is needed to update it.
+# To make the overall operation idempotent, just run them both.
+mongo --port $PORT <<END_MONGO
+  conf = { _id: "rs0", members: [ { _id: 0, host: "127.0.0.1:$PORT" } ] }
+  rs.initiate(conf)
+  rs.reconfig(conf, {force: true})
+END_MONGO
