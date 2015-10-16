@@ -9,6 +9,8 @@ if [[ $# -lt 1 ]]; then
   exit 1
 fi
 
+PATH=$PATH:/usr/local/bin:/opt/boxen/homebrew/bin/
+
 PORT=$1
 
 # If replication has never been configured before on this instance,
