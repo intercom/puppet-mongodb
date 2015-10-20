@@ -4,10 +4,12 @@ class mongodb::oplog(
 ) inherits mongodb::params {
 
   $init_oplog_path = "${boxen::config::home}/bin/init_oplog"
+  $homebrew_bindir = "${boxen::config::homebrewdir}/bin"
 
   file {
     $init_oplog_path:
-      source => 'puppet:///modules/mongodb/init_oplog' ;
+      mode    => '0755',
+      content => template('mongodb/init_oplog.erb') ;
   }
   
   ~>
