@@ -6,6 +6,22 @@ class Mongodb < Formula
   stable do
     url "https://fastdl.mongodb.org/src/mongodb-src-r2.6.8.tar.gz"
     sha1 "d67254ef3ba5ba81e21c56be9b919c3a10e01b32"
+
+    # Review this patch with the next stable release.
+    # Note it is a different patch to the one applied to all builds further below.
+    # This is already fixed in the devel & HEAD builds.
+    if MacOS.version == :yosemite
+      patch do
+        url "https://github.com/mongodb/mongo/commit/759b6e8.diff"
+        sha1 "63d901ac81681fbe8b92dc918954b247990ab2fb"
+      end
+    end
+    if MacOS.version == :el_capitan
+      patch do
+        url "https://gist.githubusercontent.com/patrickod/cf8d177c949eaf25e18f/raw/219946186c0ba286e1a6c641c7c5d1f0487f766f/mongodb_el_capitan.diff"
+        sha1 "7fe780472930b07f9b0bcb7ed72a6c3682b79a06"
+      end
+    end
   end
 
   version '2.6.8-boxen1'
@@ -50,7 +66,9 @@ class Mongodb < Formula
 
     # For Yosemite with Clang 3.5+ we need this to build Mongo pre 2.7.7
     # See: https://github.com/mongodb/mongo/pull/956#issuecomment-94545753
-    args << "--disable-warnings-as-errors" if MacOS.version == :yosemite
+    if MacOS.version == :yosemite || MacOS.version == :el_capitan
+      args << "--disable-warnings-as-errors"
+    end
 
     # --full installs development headers and client library, not just binaries
     # (only supported pre-2.7)
