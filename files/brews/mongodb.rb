@@ -7,15 +7,6 @@ class Mongodb < Formula
     url "https://fastdl.mongodb.org/src/mongodb-src-r2.6.8.tar.gz"
     sha1 "d67254ef3ba5ba81e21c56be9b919c3a10e01b32"
 
-    # Review this patch with the next stable release.
-    # Note it is a different patch to the one applied to all builds further below.
-    # This is already fixed in the devel & HEAD builds.
-    if MacOS.version == :yosemite
-      patch do
-        url "https://github.com/mongodb/mongo/commit/759b6e8.diff"
-        sha1 "63d901ac81681fbe8b92dc918954b247990ab2fb"
-      end
-    end
     if MacOS.version == :el_capitan
       patch do
         url "https://gist.githubusercontent.com/patrickod/cf8d177c949eaf25e18f/raw/219946186c0ba286e1a6c641c7c5d1f0487f766f/mongodb_el_capitan.diff"
